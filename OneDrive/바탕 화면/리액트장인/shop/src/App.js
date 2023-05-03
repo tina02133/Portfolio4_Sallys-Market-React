@@ -2,12 +2,21 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import data from './data.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import Detail from './detail';
+import Detail from './detail.js';
 import axios from 'axios'
+import Cart from './cart.js'
 
 function App() {
+
+  // localStorage 에 저장하기
+  // localStorage  에는 array / object 자료형을 저장불가.
+  // 따라서 JSON 형태로 바꿔주어 저장해야 함
+  useEffect(()=>{
+    localStorage.setItem('watched',JSON.stringify([]))
+  },[])
+
 
   // import한 상품 data state에 저장하기
   let [shoe, shoe변경] = useState(data);
@@ -44,7 +53,7 @@ function App() {
                 {
                   shoe.map(function (a, i) {
                     return (
-                      <Product onClick={() => { navigate('/detail/' + i) }} shoe={shoe[i]} i={i} />
+                      <Product shoe={shoe[i]} i={i}   />
                     )
                   })
                 }
@@ -78,6 +87,7 @@ function App() {
           <Route path='one' element={<h4>첫 주문 시 양배추즙 서비스</h4>}></Route>
           <Route path='two' element={<h4>생일 기념 쿠폰</h4>}></Route>
         </Route>
+        <Route path='/cart' element={<Cart/>}></Route>
       </Routes>
     </div>
   );
@@ -108,9 +118,21 @@ function Event() {
 
 // 상품목록 컴포넌트 만들기 
 function Product(props) {
+  let navigate = useNavigate();
   return (
     <div className="col-md-4">
-      <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width="80%" />
+      <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width="80%" onClick={() =>{ navigate('/detail/' + props.i);  
+      
+      // 메인에서 클릭한 상품 localStorage 에 추가하기
+      let watched = JSON.parse(localStorage.getItem('watched'));
+      watched.push(props.shoe.id);
+      watched = new Set(watched);
+      watched = Array.from(watched);
+      localStorage.setItem('watched', JSON.stringify(watched));
+      
+      
+      
+      }} />
       <h4>{props.shoe.title}</h4>
       <p>{props.shoe.content}</p>
       <p>{props.shoe.price}</p>

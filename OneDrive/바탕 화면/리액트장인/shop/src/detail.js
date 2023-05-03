@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { Nav } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "./store";
 
 function Detail(props) {
+
+  let state = useSelector((state)=>{return state})
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   // 경로에서 param 네이밍을 id 로 했으니, 변수명을 동일하게 통일해주어야 함 
   let { id } = useParams();
@@ -51,7 +57,8 @@ function Detail(props) {
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          {/* 주문하기 버튼 클릭 시 장바구니 state 에 추가되도록 하기 */}
+          <button className="btn btn-danger" onClick={()=>{navigate('/cart'); dispatch(addCart({id : 1, name : 찾은상품.title, count : 1}))}}>주문하기</button>
         </div>
       </div>
       <Nav variant="tabs" defaultActiveKey="link0">
