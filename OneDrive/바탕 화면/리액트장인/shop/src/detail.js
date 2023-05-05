@@ -51,7 +51,7 @@ function Detail(props) {
       }
       <div className="row">
         <div className="col-md-6">
-          <img src={'https://codingapple1.github.io/shop/shoes' + (찾은상품.id + 1) + '.jpg'} width="80%" />
+          <img src={찾은상품.img} width="80%" />
         </div>
         <div className="col-md-6">
           <h4 className="pt-5">{찾은상품.title}</h4>
@@ -63,13 +63,13 @@ function Detail(props) {
       </div>
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(0)}} eventKey="link0">버튼0</Nav.Link>
+          <Nav.Link onClick={()=>{탭변경(0)}} eventKey="link0">상세정보</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(1)}} eventKey="link1">버튼1</Nav.Link>
+          <Nav.Link onClick={()=>{탭변경(1)}} eventKey="link1">배송정보</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(2)}} eventKey="link2">버튼2</Nav.Link>
+          <Nav.Link onClick={()=>{탭변경(2)}} eventKey="link2">후기</Nav.Link>
         </Nav.Item>
       </Nav>
       <TabContent 탭={탭} />

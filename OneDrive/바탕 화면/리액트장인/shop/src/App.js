@@ -7,6 +7,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './detail.js';
 import axios from 'axios'
 import Cart from './cart.js'
+import MainSlide from './mainSlide';
 
 function App() {
 
@@ -30,21 +31,31 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
-          <Nav className="me-auto">
+          <div class="alert alert-warning"onClick={()=>{ navigate('/event')}}>지금 주문 시 20% 할인 쿠폰 증정!</div>
+          {/* <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
-          </Nav>
+          </Nav> */}
+      <Navbar bg="purple" className='text-purple'>
+        <Container>
+          <Navbar.Brand onClick={()=>{ navigate('/')}}>시연이네 편의점</Navbar.Brand>
+          {/* <Nav className="me-auto">
+            <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
+          </Nav> */}
         </Container>
       </Navbar>
       {/* Router 사용하여 페이지 나누기  */}
       <Routes>
         <Route path="/" element={
           <>
-            <div className="main-bg"></div>
+            {/* ★★★★ 우선은 메인페이지 메인이미지 슬라이드 컴포넌트로 만들자 */}
+            <MainSlide/>
+            <div className='main-ment'>
+                <p>이 상품 어때요?</p>
+            </div>
             <div className="container">
+               {/* ★★★★상품 이미지 마켓컬리 클론해서 하도록 하자, data.js파일에 이미지 요소 따로 등록해서 끌어오자 */}
               <div className="row">
                 {/* map 반복문 사용 시 {} 로 묶어주기 
                      ()안의 a는 해당 반복회차의  shoe 데이터를 의미.
@@ -79,10 +90,6 @@ function App() {
         {/* 404페이지 */}
         <Route path='*' element={<div>없는 페이지입니다</div>}></Route>
         {/* nested routes */}
-        <Route path='/about' element={<About />}>
-          <Route path='tel' element={<div>연락처 정보입니다</div>}></Route>
-          <Route path='location' element={<div>위치 정보입니다</div>}></Route>
-        </Route>
         <Route path='/event' element={<Event />}>
           <Route path='one' element={<h4>첫 주문 시 양배추즙 서비스</h4>}></Route>
           <Route path='two' element={<h4>생일 기념 쿠폰</h4>}></Route>
@@ -93,17 +100,6 @@ function App() {
   );
 }
 
-
-//About => 회사 정보 컴포넌트 
-function About() {
-  return (
-    <>
-      <h3>회사 소개페이지입니다</h3>
-      <Outlet></Outlet>
-    </>
-  )
-
-}
 
 //Event => 이벤트 정보 컴포넌트 만들기
 function Event() {
@@ -121,7 +117,7 @@ function Product(props) {
   let navigate = useNavigate();
   return (
     <div className="col-md-4">
-      <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width="80%" onClick={() =>{ navigate('/detail/' + props.i);  
+      <img src={props.shoe.img} width="80%" onClick={() =>{ navigate('/detail/' + props.i);  
       
       // 메인에서 클릭한 상품 localStorage 에 추가하기
       let watched = JSON.parse(localStorage.getItem('watched'));
@@ -129,9 +125,7 @@ function Product(props) {
       watched = new Set(watched);
       watched = Array.from(watched);
       localStorage.setItem('watched', JSON.stringify(watched));
-      
-      
-      
+    
       }} />
       <h4>{props.shoe.title}</h4>
       <p>{props.shoe.content}</p>
