@@ -8,15 +8,18 @@ import Detail from './detail.js';
 import axios from 'axios'
 import Cart from './cart.js'
 import MainSlide from './mainSlide';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// fontAwsome import
+import { faForward, faBackward } from "@fortawesome/free-solid-svg-icons"
 
 function App() {
 
   // localStorage 에 저장하기
   // localStorage  에는 array / object 자료형을 저장불가.
   // 따라서 JSON 형태로 바꿔주어 저장해야 함
-  useEffect(()=>{
-    localStorage.setItem('watched',JSON.stringify([]))
-  },[])
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify([]))
+  }, [])
 
 
   // import한 상품 data state에 저장하기
@@ -31,18 +34,14 @@ function App() {
 
   return (
     <div className="App">
-          <div class="alert alert-warning"onClick={()=>{ navigate('/event')}}>지금 주문 시 20% 할인 쿠폰 증정!</div>
-          {/* <Nav className="me-auto">
-            <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
-          </Nav> */}
-      <Navbar bg="purple" className='text-purple'>
-        <Container>
-          <Navbar.Brand onClick={()=>{ navigate('/')}}>시연이네 편의점</Navbar.Brand>
-          {/* <Nav className="me-auto">
-            <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/detail') }}>Detail</Nav.Link>
-          </Nav> */}
+      <div class="alert alert-warning" onClick={() => { navigate('/event') }}>지금 주문 시 20% 할인 쿠폰 증정!</div>
+      <Navbar bg="purple" className='navbar'>
+        <Container className='nav-text'>
+          <Navbar.Brand onClick={() => { navigate('/') }}>한손 마켓</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link onClick={() => { navigate('/cart') }}>장바구니</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/event') }}>이벤트</Nav.Link>
+          </Nav>
         </Container>
       </Navbar>
       {/* Router 사용하여 페이지 나누기  */}
@@ -50,12 +49,12 @@ function App() {
         <Route path="/" element={
           <>
             {/* ★★★★ 우선은 메인페이지 메인이미지 슬라이드 컴포넌트로 만들자 */}
-            <MainSlide/>
+            <MainSlide />
             <div className='main-ment'>
-                <p>이 상품 어때요?</p>
+              <p>이 상품 어때요?</p>
             </div>
             <div className="container">
-               {/* ★★★★상품 이미지 마켓컬리 클론해서 하도록 하자, data.js파일에 이미지 요소 따로 등록해서 끌어오자 */}
+              {/* ★★★★상품 이미지 마켓컬리 클론해서 하도록 하자, data.js파일에 이미지 요소 따로 등록해서 끌어오자 */}
               <div className="row">
                 {/* map 반복문 사용 시 {} 로 묶어주기 
                      ()안의 a는 해당 반복회차의  shoe 데이터를 의미.
@@ -64,7 +63,7 @@ function App() {
                 {
                   shoe.map(function (a, i) {
                     return (
-                      <Product shoe={shoe[i]} i={i}   />
+                      <Product shoe={shoe[i]} i={i} />
                     )
                   })
                 }
@@ -94,7 +93,7 @@ function App() {
           <Route path='one' element={<h4>첫 주문 시 양배추즙 서비스</h4>}></Route>
           <Route path='two' element={<h4>생일 기념 쿠폰</h4>}></Route>
         </Route>
-        <Route path='/cart' element={<Cart/>}></Route>
+        <Route path='/cart' element={<Cart />}></Route>
       </Routes>
     </div>
   );
@@ -116,20 +115,34 @@ function Event() {
 function Product(props) {
   let navigate = useNavigate();
   return (
-    <div className="col-md-4">
-      <img src={props.shoe.img} width="80%" onClick={() =>{ navigate('/detail/' + props.i);  
-      
-      // 메인에서 클릭한 상품 localStorage 에 추가하기
-      let watched = JSON.parse(localStorage.getItem('watched'));
-      watched.push(props.shoe.id);
-      watched = new Set(watched);
-      watched = Array.from(watched);
-      localStorage.setItem('watched', JSON.stringify(watched));
-    
-      }} />
-      <h4>{props.shoe.title}</h4>
-      <p>{props.shoe.content}</p>
-      <p>{props.shoe.price}</p>
+    <div className="col-md-4  product-box">
+      <div className='overlay' onClick={() => {
+        navigate('/detail/' + props.i);
+
+        // 메인에서 클릭한 상품 localStorage 에 추가하기
+        let watched = JSON.parse(localStorage.getItem('watched'));
+        watched.push(props.shoe.id);
+        watched = new Set(watched);
+        watched = Array.from(watched);
+        localStorage.setItem('watched', JSON.stringify(watched));
+
+      }}>
+        <div className='overlay-black'>
+          <p>구매하러 가기!</p>
+        </div>
+      </div>
+      {/* 이미지 담는 박스 */}
+      <div className='img-box'>
+        {/* 이미지 */}
+        <img src={props.shoe.img} width="80%" />
+      </div>
+      <hr />
+      {/* 제품 이름 박스 */}
+      <div className='text-box'>
+        <h4>{props.shoe.title}</h4>
+        {/* <p>{props.shoe.content}</p> */}
+        <p>{props.shoe.price}원</p>
+      </div>
     </div>
   )
 }

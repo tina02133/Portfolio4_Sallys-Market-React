@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { Nav } from "react-bootstrap"
+import { Nav, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "./store";
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
+
 
 function Detail(props) {
 
@@ -42,49 +45,53 @@ function Detail(props) {
 
   return (
     <div className="container">
-      {
+      {/* <StackingExample className="ex"/> */}
+      {/* {
         박스상태 == true
           ? <div className="alert alert-warning">
             <p>2초 이내 구매 시 10 % 할인</p>
           </div>
           : null
-      }
+      } */}
       <div className="row">
+        {/* 이미지 부분 */}
         <div className="col-md-6">
           <img src={찾은상품.img} width="80%" />
         </div>
-        <div className="col-md-6">
-          <h4 className="pt-5">{찾은상품.title}</h4>
-          <p>{찾은상품.content}</p>
-          <p>{찾은상품.price}</p>
+        {/* 가격 및 주문하기 버튼 부분 */}
+        <div className="col-md-6 item-info">
+          <h3 className="pt-5 item-title">{찾은상품.title}</h3>
+          <p className="item-price">{찾은상품.price}원</p>
+          {/* 원산지 및 배송정보 div */}
+          <div className="ship-info">
+            <p>원산지 : 한국</p>
+            <hr></hr>
+            <p>배송비 : 무료</p>
+          </div>
+          {/* 주문할 상품 갯수 div */}
+          <div>갯수부분</div>
           {/* 주문하기 버튼 클릭 시 장바구니 state 에 추가되도록 하기 */}
-          <button className="btn btn-danger" onClick={()=>{navigate('/cart'); dispatch(addCart({id : 1, name : 찾은상품.title, count : 1}))}}>주문하기</button>
+          <button className="btn btn-danger" onClick={()=>{navigate('/cart'); dispatch(addCart({id : 1, img : 찾은상품.img, name : 찾은상품.title, count : 1}))}}>주문하기</button>
         </div>
       </div>
+      {/* 탭 3개 부분 */}
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(0)}} eventKey="link0">상세정보</Nav.Link>
+          <Nav.Link className ="tab-nav-link" onClick={()=>{탭변경(0)}} eventKey="link0">상세정보</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(1)}} eventKey="link1">배송정보</Nav.Link>
+          <Nav.Link className ="tab-nav-link" onClick={()=>{탭변경(1)}} eventKey="link1">배송 및 교환/반품</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link onClick={()=>{탭변경(2)}} eventKey="link2">후기</Nav.Link>
+          <Nav.Link className ="tab-nav-link" onClick={()=>{탭변경(2)}} eventKey="link2">후기</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent 탭={탭} />
+      <TabContent 탭={탭} 찾은상품={찾은상품} />
     </div>
   )
 }
 
-function TabContent({탭}){
-  // if(props.탭 == 0){
-  //   return <div className="start end">내용0</div>
-  // }else if(props.탭 == 1){
-  //   return <div>내용1</div>
-  // }else if(props.탭==2){
-  //   return <div>내용2</div>
-  // }
+function TabContent({탭, 찾은상품}){
 
   let [fade, setFade] = useState('')
 
@@ -99,9 +106,84 @@ function TabContent({탭}){
 
   return (
     <div className={'start ' + fade }>
-      {[<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭]}
+      {[
+        // 상세정보
+        <div className="detail-info">
+          <h3>[{찾은상품.title}] <br/> 상세정보입니다</h3>
+          <div><img src={찾은상품.img}></img></div>
+        </div>,
+        // 배송정보
+      <div className="detail-info">
+        <h4>배송기간 안내</h4>
+        <p>기본 : 2~5일 소요(상품에 따라 다를 수 있으며 순차적으로 발송해드립니다)<br/>
+           배송지연 상품 : 5~7일 이상 소요<br/>
+           갑작스럽게 배송이 지연되는 경우 개별적으로 연락 드립니다
+        </p>
+        <h4>교환/반품 안내</h4>
+        <p>
+          수령 후 7일 이내에 QNA에 문의 해주신 후, 빠른 반송 부탁드립니다.<br/>
+          한손마켓의 지정 택배사 우체국을 통하여 반송 바랍니다.
+        </p>
+        <h4>회사위치</h4>
+         <img src={require("./img/지도.png")}/>
+        </div>,
+        //후기 
+      <div className="detail-info"> 
+      <Table striped bordered hover size="m" className="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>아이디</th>
+          <th>내용</th>
+          <th>작성일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>tina02133</td>
+          <td>맛도 있고 포장도 꼼꼼하게 와서 너무 좋았어요!</td>
+          <td>2023.05.12</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>역시 칼배송!! 하루만에 도착! 최고입니다 굿굿</td>
+          <td>2021.08.11</td>
+        </tr>
+        <tr>
+        <td>2</td>
+          <td>눈누난나</td>
+          <td>ㅋㅋㅋㅋ항상 시키는거지만 매번 감탄하면서 먹습니다.</td>
+          <td>2020.12.25</td>
+        </tr>
+      </tbody>
+    </Table></div>][탭]}
     </div>
   )
 
 }
 export default Detail
+
+function StackingExample() {
+  return (
+    <ToastContainer className="position-static">
+      <Toast>
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">Bootstrap</strong>
+          <small className="text-muted">just now</small>
+        </Toast.Header>
+        <Toast.Body>See? Just like this.</Toast.Body>
+      </Toast>
+      <Toast>
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">Bootstrap</strong>
+          <small className="text-muted">2 seconds ago</small>
+        </Toast.Header>
+        <Toast.Body>Heads up, toasts will stack automatically</Toast.Body>
+      </Toast>
+    </ToastContainer>
+  );
+}

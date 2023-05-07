@@ -33,22 +33,70 @@ div{
 }
 
 .main-bg{
-  height: 350px;
+  height: 400px;
   width: 400vw;
   transition: all 0.5s;
   margin-top: 40px;
 }
 
-.slide-img{
+.slide-box{
   width: 100vw;
   float: left;
   height: 100%;
+  position: relative;
+  /* background: lightgrey; */
 }
 
-.slide-img img{
+.img-on-text{
+  margin-top: 70px;
+  margin-left: 500px;
+  position: absolute;
+  font-weight: bold;
+  font-size: 50px;
+}
+.sale-text{
+  font-size: 25px;
+  color: red;
+  font-weight: bold;
+}
+.slide-box img{
   width: 65%;
   height: 100%;
 }
+
+/* 2,3번쨰 슬라이드 이미지 박스 */
+.slide-img-box{
+  margin-left: 300px;
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+
+.slide-img-box img{
+  height: 100%;
+  width: 100%;
+}
+
+.slide-text-box{
+  margin-left: 1200px;
+  width: 500px;
+  height: 100%;
+  float: left;
+  position: absolute;
+  background:plum;
+  border-radius: 50%;
+}
+
+.slide-text-box p{
+  margin-top: 100px;
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 35px;
+  position: absolute;
+  text-align: center;
+  color: black;
+}
+
 
 .start{
   opacity: 0;
@@ -60,13 +108,33 @@ div{
 }
 
 .navbar{
+  /* color: white !important; */
+  margin: 0px;
   background-color: purple !important;
-  
-} */
+} 
+
+/* 시연이네 편의점 로고 */
+.navbar-brand{
+  font-size: 28px;
+  /* font-family: 'Courier New', Courier, monospace; */
+  font-weight: bold;
+  color: white !important;
+}
+
+.nav-link{
+/* 서브메뉴 */
+  color: white;
+}
+
+/* detail 페이지 탭 메뉴 */
+.tab-nav-link{
+  color: purple;
+}
 
 .main-ment{
   height: 130px;
   padding: 25px;
+  font-weight: bold;
   margin: 20px;
 }
 
@@ -78,9 +146,117 @@ div{
   margin: 15px;
 }
 .alert alert-warning{
-  height: 15px;
+  /* height: 15px; */
+  margin: 0px;
+}
+.product-box{
+  /* transition: all 0.5s; */
+  border: solid 3px white;
+  background: white;
+  position: relative;
 }
 
+.overlay{
+  position : absolute;
+  width : 100%;
+  height : 100%;
+  overflow : hidden;
+}
+
+.overlay-black {
+  width : 100%;
+  height : 100%;
+  background : rgba(0,0,0,0.3);
+  padding : 20px;
+  opacity: 0;
+
+}
+
+.overlay:hover .overlay-black{
+  opacity: 1;
+  transition: all 0.5s;
+}
+
+.overlay-black p{
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 150px;
+  color: white;
+}
+
+
+.img-box{
+  width: 80%;
+  height: 70%;
+}
+
+.img-box img{
+  width: 100%;
+  margin-top: 10px;
+  margin-left: 40px;
+  height: 100%;
+
+}
+
+.text-box p{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* detail.js */
+/* 제품 이미지 및 가격 부분 div */
+.row{
+  margin: 50px;
+}
+
+.item-info{
+  padding: 10px;
+}
+
+.ship-info{
+  width: 250px;
+  border: solid 1px black;
+  padding : 20px;
+  margin: 15px auto;
+}
+
+.item-title{
+  font-weight: bold;
+}
+
+.item-price{
+  font-size: 25px;
+  font-weight: bold;
+  color: red;
+}
+
+.detail-info{
+  padding: 50px;
+}
+.ex{
+  float: left;
+}
+
+.table{
+  font-size: 20px;
+}
+.table-img{
+  width: 150px;
+  height: 150px;
+}
+
+.table-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.table-tr td{
+  padding-top: 50px;
+}
+
+.table-tr td:nth-child(2){
+  padding-top: 0px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

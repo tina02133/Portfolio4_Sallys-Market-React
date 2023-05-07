@@ -5,7 +5,7 @@ let data = [
     {
       id : 0,
       title : "확빠져 닭가슴살",
-      content : "Born in France",
+      content : "닭가슴살 상세정보입니다",
       price : 3800,
       img : require('./img/닭가슴살.jpg')
     },
@@ -13,7 +13,7 @@ let data = [
     {
       id : 1,
       title : "든든 도시락",
-      content : "Born in Seoul",
+      content : "든든 도시락 상세정보입니다",
       price : 4000,
       img : require('./img/도시락.jpg')
     },
@@ -21,7 +21,7 @@ let data = [
     {
       id : 2,
       title : "미쯔",
-      content : "Born in the States",
+      content : "미쯔 상세정보입니다",
       price : 1800,
       img : require('./img/미쯔.jpg')
     },  

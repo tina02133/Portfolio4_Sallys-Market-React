@@ -13,6 +13,7 @@ function Cart() {
       <thead>
         <tr>
           <th>#</th>
+          <th>이미지</th>
           <th>상품명</th>
           <th>수량</th>
           <th>변경하기</th>
@@ -22,8 +23,9 @@ function Cart() {
         {/* map  반복문으로 데이터 갯수만큼 행 만들어주기 */}
         {
           cart.stock.map((a, i) => {
-            return (<tr>
+            return (<tr className='table-tr'>
               <td>{i+1}</td>
+              <td className='table-img'><img src={cart.stock[i].img}></img></td>
               <td>{cart.stock[i].name}</td>
               <td>{cart.stock[i].count}</td>
               <td>
@@ -39,7 +41,7 @@ function Cart() {
       </tbody>
     </Table>
   )
-
+  
 }
 
 export default Cart;
