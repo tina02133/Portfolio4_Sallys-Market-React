@@ -6,21 +6,39 @@ let stock = createSlice({
     initialState: [
 
     ],
-    reducers : {
+    reducers: {
 
         // 여기서의 state는 state 안 데이터 자체를 의미.
-        changeCount(state, action){
-        let id = state.findIndex((a)=>{return a.id===action.payload});
-        state[id].count += 1;
-        },
-        addCart(state, action){
+        addCart(state, action) {
             state.push(action.payload)
+        },
+        changeCountPlus(state, action) {
+            // cart.js 에서 수량버튼 클릭 시 넘겨받은 제품 id받음.
+            // 넘겨받은 id 와 일치하는 장바구니 state 제품을 찾음  
+            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload });
+            state[찾은인덱스].count += 1;
+        },
+        // 장바구니에서 수량 변경 시 반영될 제품당 총금액 변경 함수
+        changeTotalPlus(state, action) {
+            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload })
+            state[찾은인덱스].total += state[찾은인덱스].price;
+        },
+        changeCountMinus(state, action) {
+            // cart.js 에서 수량버튼 클릭 시 넘겨받은 제품 id받음.
+            // 넘겨받은 id 와 일치하는 장바구니 state 제품을 찾음  
+            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload });
+            state[찾은인덱스].count -= 1;
+        },
+        changeTotalMinus(state, action) {
+            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload })
+            state[찾은인덱스].total -= state[찾은인덱스].price;
         }
     }
 })
 
+
 //변경 함수 export하기
-export let {changeCount, addCart} = stock.actions;
+export let { changeCountPlus, addCart, changeTotalPlus,changeCountMinus, changeTotalMinus } = stock.actions;
 
 export default configureStore({
     reducer: {

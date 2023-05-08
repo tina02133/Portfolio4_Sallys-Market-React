@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button, Navbar, Container, Nav } from 'react-bootstrap';
+import { Button, Navbar, Container, Nav, NavDropdown, Form } from 'react-bootstrap';
 import data from './data.js';
 import { useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
@@ -35,15 +35,41 @@ function App() {
   return (
     <div className="App">
       <div class="alert alert-warning" onClick={() => { navigate('/event') }}>지금 주문 시 20% 할인 쿠폰 증정!</div>
-      <Navbar bg="purple" className='navbar'>
-        <Container className='nav-text'>
-          <Navbar.Brand onClick={() => { navigate('/') }}>한손 마켓</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link onClick={() => { navigate('/cart') }}>장바구니</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/event') }}>이벤트</Nav.Link>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand className="navbar-brand" onClick={()=>{navigate('/')}}>한손마켓</Navbar.Brand>
+      <Container fluid>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+            <NavDropdown title="Menu" id="navbarScrollingDropdown">
+              <NavDropdown.Item onClick={()=>{navigate('/cart')}}>장바구니</NavDropdown.Item>
+              <NavDropdown.Item onClick={()=>{navigate('/event')}}>
+                진행중인 이벤트
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action5">
+                Something else here
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
-        </Container>
-      </Navbar>
+          <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              size="lg"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+
       {/* Router 사용하여 페이지 나누기  */}
       <Routes>
         <Route path="/" element={

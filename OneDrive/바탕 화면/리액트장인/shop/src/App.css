@@ -119,6 +119,11 @@ div{
   /* font-family: 'Courier New', Courier, monospace; */
   font-weight: bold;
   color: white !important;
+  margin-left: 50px;
+}
+
+#navbarScrollingDropdown{
+  font-size: 20px;
 }
 
 .nav-link{
@@ -211,10 +216,16 @@ div{
 
 .item-info{
   padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.img-info{
+  margin-top: 60px;
 }
 
 .ship-info{
-  width: 250px;
+  width: 200px;
   border: solid 1px black;
   padding : 20px;
   margin: 15px auto;
@@ -222,6 +233,7 @@ div{
 
 .item-title{
   font-weight: bold;
+  padding-bottom: 20px;
 }
 
 .item-price{
@@ -256,6 +268,54 @@ div{
 
 .table-tr td:nth-child(2){
   padding-top: 0px;
+}
+
+/* 메인페이지 메뉴에 mouse:hover 시 메뉴 보이게 하기 */
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0;
+}
+.cartName{
+  padding: 20px;
+  position: left;
+  font-weight: bold;
+}
+.total{
+  font-size: 40px;
+  font-weight: bold;
+}
+.total-price{
+  font-size: 40px;
+  font-weight: bold;
+  color: red;
+}
+
+.order-btn{
+  font-size: 30px;
+}
+
+.order-box{
+  padding: 40px;
+}
+.count-box{
+  width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.count-btn{
+  background: purple;
+  color: white;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.item-total-price{
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.item-order-btn{
+  font-size: 25px;
 }
 @keyframes App-logo-spin {
   from {
