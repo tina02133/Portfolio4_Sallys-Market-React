@@ -12,6 +12,12 @@ let stock = createSlice({
         addCart(state, action) {
             state.push(action.payload)
         },
+        removeCart(state, action){
+            let 찾은인덱스 = state.findIndex((a)=>{
+                return a.id === action.payload;  
+            })
+            state.splice(찾은인덱스,1);
+        },
         changeCountPlus(state, action) {
             // cart.js 에서 수량버튼 클릭 시 넘겨받은 제품 id받음.
             // 넘겨받은 id 와 일치하는 장바구니 state 제품을 찾음  
@@ -38,7 +44,7 @@ let stock = createSlice({
 
 
 //변경 함수 export하기
-export let { changeCountPlus, addCart, changeTotalPlus,changeCountMinus, changeTotalMinus } = stock.actions;
+export let { changeCountPlus, addCart, changeTotalPlus,changeCountMinus, changeTotalMinus,removeCart } = stock.actions;
 
 export default configureStore({
     reducer: {

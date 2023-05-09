@@ -32,45 +32,72 @@ function App() {
 
   let [클릭, 클릭변경] = useState(0);
 
+  // localStorage 에 있는 상품 가져오기 
+  // 여기서 최근본상품은 data.js 에 들어있는 제품의  id 값 배열임
+  let 최근본상품 = JSON.parse(localStorage.getItem('watched'));
+  console.log(최근본상품);
+
+
+
   return (
     <div className="App">
       <div class="alert alert-warning" onClick={() => { navigate('/event') }}>지금 주문 시 20% 할인 쿠폰 증정!</div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand className="navbar-brand" onClick={()=>{navigate('/')}}>한손마켓</Navbar.Brand>
-      <Container fluid>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <NavDropdown title="Menu" id="navbarScrollingDropdown">
-              <NavDropdown.Item onClick={()=>{navigate('/cart')}}>장바구니</NavDropdown.Item>
-              <NavDropdown.Item onClick={()=>{navigate('/event')}}>
-                진행중인 이벤트
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              size="lg"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-
+        <Navbar.Brand className="navbar-brand" onClick={() => { navigate('/') }}>이름뭐로하지</Navbar.Brand>
+        <Container fluid>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
+              <NavDropdown title="Menu" id="navbarScrollingDropdown">
+                <NavDropdown.Item onClick={() => { navigate('/cart') }}>장바구니</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => { navigate('/event') }}>
+                  진행중인 이벤트
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action5">
+                  Something else here
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                size="lg"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {/* 최근 본 상품 div */}
+      <div className='watched'>
+        <div className='cart-count'>
+          cart
+        </div>
+        <div className='watched-item'>
+          최근 본 상품
+        </div>
+        {
+          shoe.map((a, i) => {
+            // 최근본상품 이라는 배열에 a.id 값이 포함되어 있다면
+            if (최근본상품.includes(a.id)) {
+              // a.img 내놔라
+              return <div className='watched-img'>
+                <img src={a.img}></img>
+              </div>
+            }
+          })
+        }
+      </div>
       {/* Router 사용하여 페이지 나누기  */}
+
       <Routes>
         <Route path="/" element={
           <>
@@ -145,7 +172,7 @@ function Product(props) {
       <div className='overlay' onClick={() => {
         navigate('/detail/' + props.i);
 
-        // 메인에서 클릭한 상품 localStorage 에 추가하기
+        //최근에 본 상품 localStorage 에 추가하기
         let watched = JSON.parse(localStorage.getItem('watched'));
         watched.push(props.shoe.id);
         watched = new Set(watched);

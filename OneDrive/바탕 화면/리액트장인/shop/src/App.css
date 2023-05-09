@@ -317,6 +317,39 @@ div{
 .item-order-btn{
   font-size: 25px;
 }
+
+/* 최근 본 상품 div */
+.watched{
+  border : solid 1px black;
+  width: 200px;
+  font-size: 25px;
+  font-weight: bold;
+  position: fixed;
+  top: 200px;
+  border-radius: 5px;
+  right: 100px;
+}
+
+.cart-count{
+  border : solid 1px black;
+  color: white;
+  background: black;
+}
+
+.watched-img{
+  border : solid 1px black;
+  height: 180px;
+  width: 180px;
+  margin: 0px auto;
+}
+
+.watched-img img{
+  height: 100%;
+  width: 100%;
+}
+.watched-item{
+  border : solid 1px black;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
