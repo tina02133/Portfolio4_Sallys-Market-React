@@ -34,20 +34,11 @@ let MainSlide = function MainSlide(){
                             </p>
                         </div>
                     </div>
-                    {/* <div className='slide-box'>
-                        <div className="slide-img-box">
-                            <img src={require('./img/1+1.jpg')}/>
-                        </div>
-                        <div className="slide-text-box">
-                            <p>모든 도시락이<br/> 1+1<br/>
-                            <span className="sale-text">5/1~5/31 한달간 샐러드 구매 시 10% 할인!</span>
-                            </p>
-                        </div>
-                    </div> */}
+                    
                 </div>
             </div>
             <div className="slide-btn">
-            <button onClick={()=>{
+            <FontAwesomeIcon icon={faBackward} className="faBackward" onClick={()=>{
                 // 지금 사진이 1번이면 2번 사진 보여주고
                 // 지금 사진이 2번이면 3번 사진 보여줘 
                 if(지금사진 ==1)
@@ -62,8 +53,8 @@ let MainSlide = function MainSlide(){
                     지금사진--;         
                 }
 
-            }}><FontAwesomeIcon icon={faBackward} /></button>
-            <button onClick={()=>{
+            }} />
+            <FontAwesomeIcon icon={faForward} className="faForward" onClick={()=>{
                 // 지금 사진이 1번이면 2번 사진 보여주고
                 // 지금 사진이 2번이면 3번 사진 보여줘 
                 if(지금사진 ==1)
@@ -77,7 +68,7 @@ let MainSlide = function MainSlide(){
                     document.getElementById('main-bg').style.transform = 'translateX(-200vw)';
                     // 지금사진 +=1;
                 }
-            }}><FontAwesomeIcon icon={faForward} /></button>
+            }}/>
             </div>
         </> 
     )

@@ -322,6 +322,7 @@ div{
 .watched{
   border : solid 1px black;
   width: 200px;
+  /* height: 660px; */
   font-size: 25px;
   font-weight: bold;
   position: fixed;
@@ -343,12 +344,55 @@ div{
   margin: 0px auto;
 }
 
+/* .watched-img{
+  height: 80%;
+  width: 80%;
+} */
+
 .watched-img img{
   height: 100%;
   width: 100%;
 }
 .watched-item{
   border : solid 1px black;
+}
+
+.down-btn{
+  border: solid 1px black;
+  background-color: black;
+  color: white;
+}
+
+.sort-btn{
+  margin-right: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 50px;
+  font-size: 25px;
+  border: 1px solid purple;
+  font-weight: bold;
+}
+
+.sort-btn:hover{
+  background: black;
+  color: white;
+  transition: all 0.5s;
+
+}
+.faForward, .faBackward{
+  background: white;
+  border: solid 1px purple;
+  font-size: 25px;
+  color:purple;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 50px;
+}
+
+.faForward:hover,.faBackward:hover{
+  background: black;
+  transition: all 0.5s;
+  color: white;
 }
 @keyframes App-logo-spin {
   from {

@@ -89,12 +89,15 @@ function App() {
             // 최근본상품 이라는 배열에 a.id 값이 포함되어 있다면
             if (최근본상품.includes(a.id)) {
               // a.img 내놔라
-              return <div className='watched-img'>
+              return <div className='watched-img' onClick={()=>{navigate('/detail/' + a.id)}}>
                 <img src={a.img}></img>
               </div>
             }
           })
         }
+        <div className='down-btn'>
+          ⬇️
+        </div>
       </div>
       {/* Router 사용하여 페이지 나누기  */}
 
@@ -105,6 +108,29 @@ function App() {
             <MainSlide />
             <div className='main-ment'>
               <p>이 상품 어때요?</p>
+            </div>
+            <div className='btn-box'>
+              <button className='sort-btn' onClick={()=>{
+                  let copy = [...shoe];
+                  // 가격 오름차순 정렬
+                  shoe변경(copy.sort(function(a,b){
+                    return a.price - b.price; 
+                  }))
+              }}>낮은가격순</button>
+              <button className='sort-btn' onClick={()=>{
+                   let copy = [...shoe];
+                   // 가격 내림차순 정렬
+                   shoe변경(copy.sort(function(a,b){
+                     return b.price - a.price; 
+                   }))                     
+              }}>높은가격순</button>
+              <button className='sort-btn' onClick={()=>{
+                   let copy = [...shoe];
+                   // 한글 가나다 순 정렬
+                   shoe변경(copy.sort(function(a,b){
+                    return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+                   }))     
+              }}>가나다순</button>
             </div>
             <div className="container">
               {/* ★★★★상품 이미지 마켓컬리 클론해서 하도록 하자, data.js파일에 이미지 요소 따로 등록해서 끌어오자 */}
@@ -122,7 +148,7 @@ function App() {
                 }
               </div>
               {/* 상품 더보기 버튼임 */}
-              <button onClick={() => {
+              {/* <button onClick={() => {
                 //클릭 했을 때 클릭  state 에 숫자 추가 
                 클릭변경(클릭 + 1);
                 axios.get('https://codingapple1.github.io/shop/data2.json').then((결과) => {
@@ -133,7 +159,7 @@ function App() {
                   .catch(() => {
                     console.log('실패함')
                   })
-              }}>더보기</button>
+              }}>더보기</button> */}
             </div>
           </>
         }></Route>
