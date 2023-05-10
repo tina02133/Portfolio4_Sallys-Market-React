@@ -66,7 +66,7 @@ function Detail(props) {
       <div className="row">
         {/* 이미지 부분 */}
         <div className="col-md-6 img-info">
-          <img src={찾은상품.img} width="65%" />
+          <img src={찾은상품.img} width="70%" />
         </div>
         {/* 가격 및 주문하기 버튼 부분 */}
         <div className="col-md-6 item-info">
@@ -115,7 +115,7 @@ function Detail(props) {
           {/* 갯수에 따른 총 가격 표시 부분 */}
           <p className="item-total-price">총 가격 : {총금액}원</p>
           {/* 주문하기 버튼 클릭 시 장바구니 state 에 추가되도록 하기 */}
-          <button className="btn btn-danger item-order-btn" onClick={() => { navigate('/cart'); dispatch(addCart({ id: 찾은상품.id, img: 찾은상품.img, name: 찾은상품.title, count: 수량,price : 찾은상품.price, total : 총금액 })) }}>주문하기</button>
+          <button className="btn btn-warning item-order-btn" onClick={() => { navigate('/cart'); dispatch(addCart({ id: 찾은상품.id, img: 찾은상품.img, name: 찾은상품.title, count: 수량,price : 찾은상품.price, total : 총금액 })) }}>주문하기</button>
         </div>
       </div>
       {/* 탭 3개 부분 */}
@@ -154,7 +154,7 @@ function TabContent({ 탭, 찾은상품 }) {
         // 상세정보
         <div className="detail-info">
           <h3>[{찾은상품.title}] <br /> 상세정보입니다</h3>
-          <div><img src={찾은상품.img}></img></div>
+          <div className="detail-info-img"><img src={찾은상품.img}></img></div>
         </div>,
         // 배송정보
         <div className="detail-info">

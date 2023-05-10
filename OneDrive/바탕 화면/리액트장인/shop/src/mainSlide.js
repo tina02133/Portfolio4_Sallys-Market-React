@@ -34,7 +34,6 @@ let MainSlide = function MainSlide(){
                             </p>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <div className="slide-btn">
@@ -52,7 +51,6 @@ let MainSlide = function MainSlide(){
                     document.getElementById('main-bg').style.transform = 'translateX(-200vw)';
                     지금사진--;         
                 }
-
             }} />
             <FontAwesomeIcon icon={faForward} className="faForward" onClick={()=>{
                 // 지금 사진이 1번이면 2번 사진 보여주고
@@ -73,5 +71,4 @@ let MainSlide = function MainSlide(){
         </> 
     )
 } 
-
 export default MainSlide;

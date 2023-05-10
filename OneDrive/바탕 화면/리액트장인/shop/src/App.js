@@ -2,8 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Navbar, Container, Nav, NavDropdown, Form } from 'react-bootstrap';
 import data from './data.js';
-import { useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import Detail from './detail.js';
 import axios from 'axios'
 import Cart from './cart.js'
@@ -37,13 +37,11 @@ function App() {
   let 최근본상품 = JSON.parse(localStorage.getItem('watched'));
   console.log(최근본상품);
 
-
-
   return (
     <div className="App">
-      <div class="alert alert-warning" onClick={() => { navigate('/event') }}>지금 주문 시 20% 할인 쿠폰 증정!</div>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand className="navbar-brand" onClick={() => { navigate('/') }}>이름뭐로하지</Navbar.Brand>
+      <div class="alert alert-warning" className='alert' onClick={() => { navigate('/event') }}>지금 주문 시 20% 할인 쿠폰 증정!</div>
+      <Navbar bg="light" expand="lg" className='nav'>
+        <Navbar.Brand className="navbar-brand" onClick={() => { navigate('/') }}>Sally's Market</Navbar.Brand>
         <Container fluid>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
@@ -68,7 +66,7 @@ function App() {
                 type="search"
                 placeholder="Search"
                 className="me-2"
-                size="lg"
+                size="m"
                 aria-label="Search"
               />
               <Button variant="outline-success">Search</Button>
@@ -76,64 +74,42 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* 최근 본 상품 div */}
-      <div className='watched'>
-        <div className='cart-count'>
-          cart
-        </div>
-        <div className='watched-item'>
-          최근 본 상품
-        </div>
-        {
-          shoe.map((a, i) => {
-            // 최근본상품 이라는 배열에 a.id 값이 포함되어 있다면
-            if (최근본상품.includes(a.id)) {
-              // a.img 내놔라
-              return <div className='watched-img' onClick={()=>{navigate('/detail/' + a.id)}}>
-                <img src={a.img}></img>
-              </div>
-            }
-          })
-        }
-        <div className='down-btn'>
-          ⬇️
-        </div>
-      </div>
-      {/* Router 사용하여 페이지 나누기  */}
 
+      {/* 최근본상품 컴포넌트 */}
+      <RecentWatched className="" shoe={shoe} 최근본상품={최근본상품} navigate={navigate} />
+
+      {/* Router 사용하여 페이지 나누기  */}
       <Routes>
         <Route path="/" element={
           <>
-            {/* ★★★★ 우선은 메인페이지 메인이미지 슬라이드 컴포넌트로 만들자 */}
             <MainSlide />
             <div className='main-ment'>
               <p>이 상품 어때요?</p>
             </div>
             <div className='btn-box'>
-              <button className='sort-btn' onClick={()=>{
-                  let copy = [...shoe];
-                  // 가격 오름차순 정렬
-                  shoe변경(copy.sort(function(a,b){
-                    return a.price - b.price; 
-                  }))
+              <button className='sort-btn' onClick={() => {
+                let copy = [...shoe];
+                // 가격 오름차순 정렬
+                shoe변경(copy.sort(function (a, b) {
+                  return a.price - b.price;
+                }))
               }}>낮은가격순</button>
-              <button className='sort-btn' onClick={()=>{
-                   let copy = [...shoe];
-                   // 가격 내림차순 정렬
-                   shoe변경(copy.sort(function(a,b){
-                     return b.price - a.price; 
-                   }))                     
+              <button className='sort-btn' onClick={() => {
+                let copy = [...shoe];
+                // 가격 내림차순 정렬
+                shoe변경(copy.sort(function (a, b) {
+                  return b.price - a.price;
+                }))
               }}>높은가격순</button>
-              <button className='sort-btn' onClick={()=>{
-                   let copy = [...shoe];
-                   // 한글 가나다 순 정렬
-                   shoe변경(copy.sort(function(a,b){
-                    return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-                   }))     
+              <button className='sort-btn' onClick={() => {
+                let copy = [...shoe];
+                // 한글 가나다 순 정렬
+                shoe변경(copy.sort(function (a, b) {
+                  return a.title < b.title ? -1 : a.title > b.name ? 1 : 0;
+                }))
               }}>가나다순</button>
             </div>
             <div className="container">
-              {/* ★★★★상품 이미지 마켓컬리 클론해서 하도록 하자, data.js파일에 이미지 요소 따로 등록해서 끌어오자 */}
               <div className="row">
                 {/* map 반복문 사용 시 {} 로 묶어주기 
                      ()안의 a는 해당 반복회차의  shoe 데이터를 의미.
@@ -179,6 +155,37 @@ function App() {
 }
 
 
+// 최근 본 상품 컴포넌트
+function RecentWatched(props) {
+  return (
+    <>
+      <div className='watched'>
+        <div className='cart-count'>
+          cart
+        </div>
+        <div className='watched-item'>
+          최근 본 상품
+        </div>
+        {
+          props.shoe.map((a, i) => {
+            // 최근본상품 이라는 배열에 a.id 값이 포함되어 있다면
+            if (props.최근본상품.includes(a.id)) {
+              // a.img 내놔라
+              return <div className='watched-img' onClick={() => { props.navigate('/detail/' + a.id) }}>
+                <img src={a.img}></img>
+              </div>
+            }
+          })
+        }
+        <div className='down-btn'>
+          ⬇️
+        </div>
+      </div>
+    </>
+  )
+}
+
+
 //Event => 이벤트 정보 컴포넌트 만들기
 function Event() {
   return (
@@ -194,9 +201,9 @@ function Event() {
 function Product(props) {
   let navigate = useNavigate();
   return (
-    <div className="col-md-4  product-box">
+    <div className="col-md-3  product-box">
       <div className='overlay' onClick={() => {
-        navigate('/detail/' + props.i);
+        navigate('/detail/' + props.shoe.id);
 
         //최근에 본 상품 localStorage 에 추가하기
         let watched = JSON.parse(localStorage.getItem('watched'));
@@ -218,7 +225,7 @@ function Product(props) {
       <hr />
       {/* 제품 이름 박스 */}
       <div className='text-box'>
-        <h4>{props.shoe.title}</h4>
+        <h5>{props.shoe.title}</h5>
         {/* <p>{props.shoe.content}</p> */}
         <p>{props.shoe.price}원</p>
       </div>

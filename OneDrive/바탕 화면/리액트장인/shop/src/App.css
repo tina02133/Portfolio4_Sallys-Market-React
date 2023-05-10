@@ -1,14 +1,25 @@
-div{
-  margin: 0px;
-}
 
 .App {
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.nav{
+  padding: 0;
+  margin: 0;
+}
+
+.alert{
+  padding-top:10px;
+  height: 50px;
+  background: lightgoldenrodyellow;
+  margin: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -60,7 +71,7 @@ div{
   font-weight: bold;
 }
 .slide-box img{
-  width: 65%;
+  width: 100%;
   height: 100%;
 }
 
@@ -116,7 +127,7 @@ div{
 /* 시연이네 편의점 로고 */
 .navbar-brand{
   font-size: 28px;
-  /* font-family: 'Courier New', Courier, monospace; */
+  font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
   color: white !important;
   margin-left: 50px;
@@ -137,18 +148,20 @@ div{
 }
 
 .main-ment{
-  height: 130px;
-  padding: 25px;
+  height: 100px;
+  padding: 20px;
   font-weight: bold;
-  margin: 20px;
+  margin: 5px auto;
 }
 
 .main-ment p{
-  font-size: 30px;
+  font-size: 35px;
+  margin: auto;
 }
 
 .slide-btn{
   margin: 15px;
+  /* position: absolute; */
 }
 .alert alert-warning{
   /* height: 15px; */
@@ -185,14 +198,14 @@ div{
 .overlay-black p{
   font-size: 30px;
   font-weight: bold;
-  margin-top: 150px;
+  margin-top: 100px;
   color: white;
 }
 
 
 .img-box{
   width: 80%;
-  height: 70%;
+  height: 60%;
 }
 
 .img-box img{
@@ -211,39 +224,56 @@ div{
 /* detail.js */
 /* 제품 이미지 및 가격 부분 div */
 .row{
-  margin: 50px;
+  width: 1000px;
+  /* height: 300px; */
+  margin: 50px auto;
 }
 
 .item-info{
+  width: 40%;
   padding: 10px;
-  border: 1px solid black;
+  border: 2px solid purple;
   border-radius: 10px;
 }
 
 .img-info{
-  margin-top: 60px;
+  margin: auto;
 }
 
 .ship-info{
-  width: 200px;
+  width: 150px;
+  border-radius: 5px;
   border: solid 1px black;
-  padding : 20px;
+  padding : 10px;
   margin: 15px auto;
 }
 
 .item-title{
   font-weight: bold;
+  font-size: 20px;
   padding-bottom: 20px;
 }
 
 .item-price{
-  font-size: 25px;
+  font-size: 15px;
   font-weight: bold;
   color: red;
 }
 
 .detail-info{
   padding: 50px;
+  font-size: 10px;
+}
+
+.detail-info-img{
+  width: 500px;
+  height: 500px; 
+  margin: auto;
+}
+
+.detail-info-img img{
+  width: 100%;
+  height: 100%;
 }
 .ex{
   float: left;
@@ -281,19 +311,18 @@ div{
   font-weight: bold;
 }
 .total{
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
 }
 .total-price{
-  font-size: 40px;
+  font-size: 25px;
   font-weight: bold;
   color: red;
 }
 
 .order-btn{
-  font-size: 30px;
+  font-size: 25px;
 }
-
 .order-box{
   padding: 40px;
 }
@@ -310,25 +339,26 @@ div{
   font-weight: bold;
 }
 .item-total-price{
-  font-size: 25px;
+  font-size: 20px;
+  color: red;
   font-weight: bold;
 }
 
 .item-order-btn{
-  font-size: 25px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 /* 최근 본 상품 div */
 .watched{
   border : solid 1px black;
-  width: 200px;
-  /* height: 660px; */
-  font-size: 25px;
+  width: 130px;
+  font-size: 15px;
   font-weight: bold;
   position: fixed;
   top: 200px;
   border-radius: 5px;
-  right: 100px;
+  right: 20px;
 }
 
 .cart-count{
@@ -339,15 +369,10 @@ div{
 
 .watched-img{
   border : solid 1px black;
-  height: 180px;
-  width: 180px;
+  height: 100%;
+  width: 100%;
   margin: 0px auto;
 }
-
-/* .watched-img{
-  height: 80%;
-  width: 80%;
-} */
 
 .watched-img img{
   height: 100%;
@@ -365,11 +390,12 @@ div{
 
 .sort-btn{
   margin-right: 10px;
-  padding: 10px;
+  padding: 15px;
   background: white;
+  font-size: 13px;
   border-radius: 50px;
-  font-size: 25px;
   border: 1px solid purple;
+  color: purple;
   font-weight: bold;
 }
 
@@ -380,15 +406,27 @@ div{
 
 }
 .faForward, .faBackward{
-  background: white;
+  background: none;
   border: solid 1px purple;
-  font-size: 25px;
+  font-size: 35px;
   color:purple;
   margin: 10px;
   padding: 20px;
   border-radius: 50px;
 }
 
+.faForward{
+  right: 100px;
+  top: 300px;
+  position: absolute;
+}
+
+.faBackward{
+  left: 100px;
+  top: 300px;
+  position: absolute;
+
+}
 .faForward:hover,.faBackward:hover{
   background: black;
   transition: all 0.5s;
