@@ -15,36 +15,36 @@ function Detail(props) {
 
   // 경로에서 param 네이밍을 id 로 했으니, 변수명을 동일하게 통일해주어야 함 
   let { id } = useParams();
-  // let num = props.data[id].id;
 
-  let 찾은상품 = props.data.find(function (x) {
+
+  let foundItem = props.data.find(function (x) {
     return x.id == id;
   })
 
   // 렌더링 2초 이후 div 사라지는 동적인 ui 구현을 위해 state 에 ui 상태값 넣어놓기
-  let [박스상태, 박스상태변경] = useState(true);
+  let [box, setBox] = useState(true);
 
-  //갯수 버튼 조작에 의한 제품 수량 담을 state
-  let [수량, 수량변경] = useState(1);
+  //갯수 버튼 조작에 의한 제품 itemCount 담을 state
+  let [itemCount, setItemCount] = useState(1);
 
   // 갯수 버튼 조작에 의한 제품 총 가격을 담을 state
-  let [총금액, 총금액변경] = useState(찾은상품.price);
+  let [itemTotalPrice, setItemTotalPrice] = useState(foundItem.price);
 
-  // 탭 변경 저장 state 
-  let [탭, 탭변경] = useState(0);
+  // tab 변경 저장 state 
+  let [tab, setTab] = useState(0);
 
   // component 의 라이프사이클 
   // mount / update 시마다 실행될 코드
-  // 이부분에선 return 함수 사용할 필요 없음, 그냥 단순히 '박스상태변경' 이라는 함수 실행하고 끝이니까.
+  // 이부분에선 return 함수 사용할 필요 없음, 그냥 단순히 'setBox' 이라는 함수 실행하고 끝이니까.
   useEffect(() => {
     // 렌더링 2초 이후 div 사라지는 코드 
     let a = setTimeout(() => {
-      박스상태변경(false);
+      setBox(false);
     }, 3000, [])
 
     // 제품 갯수 및 금액 변경
     // react 특성상 비동기 이기 때문에 제렌더링 과정에서 오류가 생길 수 있음 
-    총금액변경(찾은상품.price*수량);
+    setItemTotalPrice(foundItem.price*itemCount);
 
     // clear up function
     // ==> mount 시 실행되는 것이 아닌 unmount 시 실행됨 
@@ -53,11 +53,14 @@ function Detail(props) {
     }
   });
 
+  // 제품가격
+  let price = foundItem.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
   return (
     <div className="container">
       {/* <StackingExample className="ex"/> */}
       {/* {
-        박스상태 == true
+        box == true
           ? <div className="alert alert-warning">
             <p>2초 이내 구매 시 10 % 할인</p>
           </div>
@@ -66,13 +69,13 @@ function Detail(props) {
       <div className="row">
         {/* 이미지 부분 */}
         <div className="col-md-6 img-info">
-          <img src={찾은상품.img} width="70%" />
+          <img src={foundItem.img} width="70%" />
         </div>
         {/* 가격 및 주문하기 버튼 부분 */}
         <div className="col-md-6 item-info">
-          <h3 className="pt-5 item-title">{찾은상품.title}</h3>
+          <h3 className="pt-5 item-title">{foundItem.title}</h3>
+          <p className="item-price">{price}원</p>
           <hr></hr>
-          <p className="item-price">{찾은상품.price}원</p>
           {/* 원산지 및 배송정보 div */}
           <div className="ship-info">
             <p>원산지 : 한국</p>
@@ -85,20 +88,20 @@ function Detail(props) {
             {/* 갯수 빼기 버튼 */}
             <button className="count-btn" onClick={()=>{
               {
-                // 수량이 음수로 넘어갈 경우 함수 실행되지 않도록 하기.
-                if(수량<=0)
+                // itemCount이 음수로 넘어갈 경우 함수 실행되지 않도록 하기.
+                if(itemCount<=0)
                 return false;
               }
               // state 변경함수로 state 변경
-              수량변경(수량-1)
-              // 수량 변경 이후 총금액 변경은 useEffect 를 이용하여 hook 걸어줌으로써 변경하도록 처리.
+              setItemCount(itemCount-1)
+              // itemCount 변경 이후 itemTotalPrice 변경은 useEffect 를 이용하여 hook 걸어줌으로써 변경하도록 처리.
               // 이유는 제렌더링 시 비동기적인 이유로 오류 생기지 않게 하기 위해서임
 
             }}>-</button>
-            {/* 수량 보여주는 input */}
+            {/* itemCount 보여주는 input */}
             <Form.Control className="count-box"
               type="text"
-              placeholder={수량}
+              placeholder={itemCount}
               aria-label="Disabled input example"
               disabled
               readOnly
@@ -106,55 +109,55 @@ function Detail(props) {
             {/* 갯수 더하기 버튼 */}
             
             <button className="count-btn" onClick={()=>{
-              수량변경(수량+1)
-              // 수량 변경 이후 총금액 변경은 useEffect 를 이용하여 hook 걸어줌으로써 변경하도록 처리.
+              setItemCount(itemCount+1)
+              // itemCount 변경 이후 itemTotalPrice 변경은 useEffect 를 이용하여 hook 걸어줌으로써 변경하도록 처리.
               // 이유는 제렌더링 시 비동기적인 이유로 오류 생기지 않게 하기 위해서임
             }}>+</button>
           </div>
           <hr/>
           {/* 갯수에 따른 총 가격 표시 부분 */}
-          <p className="item-total-price">총 가격 : {총금액}원</p>
+          <p className="item-total-price">총 가격 : <span style={{color:"red"}}>{itemTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span></p>
           {/* 주문하기 버튼 클릭 시 장바구니 state 에 추가되도록 하기 */}
-          <button className="btn btn-warning item-order-btn" onClick={() => { navigate('/cart'); dispatch(addCart({ id: 찾은상품.id, img: 찾은상품.img, name: 찾은상품.title, count: 수량,price : 찾은상품.price, total : 총금액 })) }}>주문하기</button>
+          <button className=" item-order-btn" onClick={() => { navigate('/cart'); dispatch(addCart({ id: foundItem.id, img: foundItem.img, name: foundItem.title, count: itemCount,price : foundItem.price, total : itemTotalPrice })) }}>주문하기</button>
         </div>
       </div>
-      {/* 탭 3개 부분 */}
+      {/* tab 3개 부분 */}
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link className="tab-nav-link" onClick={() => { 탭변경(0) }} eventKey="link0">상세정보</Nav.Link>
+          <Nav.Link className="tab-nav-link" onClick={() => { setTab(0) }} eventKey="link0">상세정보</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link className="tab-nav-link" onClick={() => { 탭변경(1) }} eventKey="link1">배송 및 교환/반품</Nav.Link>
+          <Nav.Link className="tab-nav-link" onClick={() => { setTab(1) }} eventKey="link1">배송 및 교환/반품</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link className="tab-nav-link" onClick={() => { 탭변경(2) }} eventKey="link2">후기</Nav.Link>
+          <Nav.Link className="tab-nav-link" onClick={() => { setTab(2) }} eventKey="link2">후기</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent 탭={탭} 찾은상품={찾은상품} />
+      <TabContent tab={tab} foundItem={foundItem} />
     </div>
   )
 }
 
-function TabContent({ 탭, 찾은상품 }) {
+function TabContent({ tab, foundItem }) {
 
   let [fade, setFade] = useState('')
 
-  // 탭 state 가 변경이 일어날때마다 fade 라는 state를 end 로 바꿔주세요~
+  // tab state 가 변경이 일어날때마다 fade 라는 state를 end 로 바꿔주세요~
   useEffect(() => {
 
     setTimeout(() => { setFade('end') }, 100)
     return () => {
       setFade('')
     }
-  }, [탭])
+  }, [tab])
 
   return (
     <div className={'start ' + fade}>
       {[
         // 상세정보
         <div className="detail-info">
-          <h3>[{찾은상품.title}] <br /> 상세정보입니다</h3>
-          <div className="detail-info-img"><img src={찾은상품.img}></img></div>
+          <h3>[{foundItem.title}] <br /> 상세정보입니다</h3>
+          <div className="detail-info-img"><img src={foundItem.img}></img></div>
         </div>,
         // 배송정보
         <div className="detail-info">
@@ -202,7 +205,7 @@ function TabContent({ 탭, 찾은상품 }) {
                 <td>2020.12.25</td>
               </tr>
             </tbody>
-          </Table></div>][탭]}
+          </Table></div>][tab]}
     </div>
   )
 

@@ -1,24 +1,32 @@
 import { Table, Button, Form } from 'react-bootstrap'
+// React redux
 import { useDispatch, useSelector } from 'react-redux';
+// redux에서 정의한 state변경 함수 import
 import { changeName, changeCountPlus, changeTotalPlus, changeCountMinus, changeTotalMinus, removeCart } from './store';
 import { useEffect, useState } from 'react';
 
 function Cart() {
 
-  // 이렇게 하면 store에 저장되어 있던 모든 state 가 변수에 저장됨
+  // 이렇게 하면 redux(store.js)에 저장되어 있던 모든 state 가 변수에 저장됨
   let cart = useSelector((state) => { return state })
   console.log(cart.stock)
   let dispatch = useDispatch()
 
   // 장바구니에 담긴 모든 제품의 총 금액 담을 state 
-  let [총금액, 총금액변경] = useState('');
-
-  // useEffect
+  let [totalPrice, setTotalPrice] = useState('');
+  // useEffect쓰는 이유 ==>
+  // React 는 state 가 변경되는 순간 페이지가 자동으로 리렌더링 됨
+  //  react 는 비동기 처리 이기때문에 state 변경과정에 있어서 순서 오류가 날 수 있음
+  // useEffect를 사용함으로서 페이지가 mount 및 update될 시에 hook 을 걸어 오류를 방지하기 위함.
+  // user가 장바구니에서 수량 버튼 클릭 시, 
+  // 즉시 redux (store.js)에 반영되도록 state 변경함수를 사용하였고,
+  // 장바구니페이지(cart.js)에서 state 가 변경됨으로서 
   useEffect(() => {
-    let 토탈액 = 0;
+    // 장바구니에 담긴 모든 제품의 총 금액을 담을 변수
+    let allItemTotal = 0;
     cart.stock.map((a, i) => {
-      토탈액 += cart.stock[i].total;
-      총금액변경(토탈액)
+      allItemTotal += cart.stock[i].total;
+      setTotalPrice(allItemTotal)
     })
   })
 
@@ -77,10 +85,10 @@ function Cart() {
                     }}>+</button>
                   </div>
                 </td>
-                <td>{cart.stock[i].total}원</td>
+                <td>{cart.stock[i].total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</td>
                 {/* 제품 삭제 버튼 */}
                 <td>
-                  <button onClick={()=>{
+                  <button className="remove-btn" onClick={()=>{
                     dispatch(removeCart(cart.stock[i].id))
                   }}>삭제</button>
                 </td>
@@ -92,9 +100,9 @@ function Cart() {
       </Table>
       <div className='order-box'>
         <div className='total'>
-          <p>총 금액 : <span className='total-price'>{총금액}원</span></p>
+          <p>총 금액 : <span className='total-price'>{totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span></p>
         </div>
-        <Button className='order-btn' variant="warning">주문하기</Button>
+        <Button className='order-btn'>주문하기</Button>
       </div>
     </>
   )

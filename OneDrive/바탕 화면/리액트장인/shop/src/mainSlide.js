@@ -7,13 +7,13 @@ import {faForward,faBackward} from "@fortawesome/free-solid-svg-icons"
 // vw 100% 로 해서 자바스크립트로 슬라이드 효과 주도록 하자
 let MainSlide = function MainSlide(){
 
-    let 지금사진 = 1;
+    let showPhoto = 1;
     return(
        <>
             <div style={{overflow : 'hidden'}}>
                 <div id="main-bg" className="main-bg">
                     <div className='slide-box'>
-                        <p className="img-on-text">이제 식단 관리도<br/>한손마켓에서!<br/>
+                        <p className="img-on-text">이제 <span style={{color:"bisque"}}>식단 관리</span>도<br/>한손마켓에서!<br/>
                         <span className="sale-text">5/1~5/31 한달간 샐러드 구매 시 10% 할인!</span>
                         </p>
                         <img src={require('./img/야채.jpg')}/>
@@ -40,31 +40,31 @@ let MainSlide = function MainSlide(){
             <FontAwesomeIcon icon={faBackward} className="faBackward" onClick={()=>{
                 // 지금 사진이 1번이면 2번 사진 보여주고
                 // 지금 사진이 2번이면 3번 사진 보여줘 
-                if(지금사진 ==1)
+                if(showPhoto ==1)
                 {
                     document.getElementById('main-bg').style.transform = 'translateX(0vw)';
-                }else if(지금사진 ==2){
+                }else if(showPhoto ==2){
                     document.getElementById('main-bg').style.transform = 'translateX(-100vw)';
-                    지금사진--;
+                    showPhoto--;
 
-                }else if(지금사진 ==3){
+                }else if(showPhoto ==3){
                     document.getElementById('main-bg').style.transform = 'translateX(-200vw)';
-                    지금사진--;         
+                    showPhoto--;         
                 }
             }} />
             <FontAwesomeIcon icon={faForward} className="faForward" onClick={()=>{
                 // 지금 사진이 1번이면 2번 사진 보여주고
                 // 지금 사진이 2번이면 3번 사진 보여줘 
-                if(지금사진 ==1)
+                if(showPhoto ==1)
                 {
                     document.getElementById('main-bg').style.transform = 'translateX(-100vw)';
-                    지금사진 +=1;
-                }else if(지금사진==2){
+                    showPhoto +=1;
+                }else if(showPhoto==2){
                     document.getElementById('main-bg').style.transform = 'translateX(-200vw)';
-                    지금사진 +=1;
-                }else if(지금사진==3){
+                    showPhoto +=1;
+                }else if(showPhoto==3){
                     document.getElementById('main-bg').style.transform = 'translateX(-200vw)';
-                    // 지금사진 +=1;
+                    // showPhoto +=1;
                 }
             }}/>
             </div>

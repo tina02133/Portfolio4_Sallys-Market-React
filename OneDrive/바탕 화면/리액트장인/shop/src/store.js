@@ -13,31 +13,31 @@ let stock = createSlice({
             state.push(action.payload)
         },
         removeCart(state, action){
-            let 찾은인덱스 = state.findIndex((a)=>{
+            let foundIndex = state.findIndex((a)=>{
                 return a.id === action.payload;  
             })
-            state.splice(찾은인덱스,1);
+            state.splice(foundIndex,1);
         },
         changeCountPlus(state, action) {
             // cart.js 에서 수량버튼 클릭 시 넘겨받은 제품 id받음.
             // 넘겨받은 id 와 일치하는 장바구니 state 제품을 찾음  
-            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload });
-            state[찾은인덱스].count += 1;
+            let foundIndex = state.findIndex((a) => { return a.id === action.payload });
+            state[foundIndex].count += 1;
         },
         // 장바구니에서 수량 변경 시 반영될 제품당 총금액 변경 함수
         changeTotalPlus(state, action) {
-            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload })
-            state[찾은인덱스].total += state[찾은인덱스].price;
+            let foundIndex = state.findIndex((a) => { return a.id === action.payload })
+            state[foundIndex].total += state[foundIndex].price;
         },
         changeCountMinus(state, action) {
             // cart.js 에서 수량버튼 클릭 시 넘겨받은 제품 id받음.
             // 넘겨받은 id 와 일치하는 장바구니 state 제품을 찾음  
-            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload });
-            state[찾은인덱스].count -= 1;
+            let foundIndex = state.findIndex((a) => { return a.id === action.payload });
+            state[foundIndex].count -= 1;
         },
         changeTotalMinus(state, action) {
-            let 찾은인덱스 = state.findIndex((a) => { return a.id === action.payload })
-            state[찾은인덱스].total -= state[찾은인덱스].price;
+            let foundIndex = state.findIndex((a) => { return a.id === action.payload })
+            state[foundIndex].total -= state[foundIndex].price;
         }
     }
 })
